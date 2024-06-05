@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Iqbal Login </title>
+		<link rel="icon" type="image/x-icon" href="Picture/logo.png">
+		
+		<style>	
+			
+			body {
+				background-image: url('Picture/login.gif'); 
+				background-repeat: no-repeat; 
+				background-size: cover;
+				background-attachment: fixed;
+				background-position: center;
+			}
+			
+			@font-face {
+				font-family: bitmap;
+				src: url(Font/8-BIT_WONDER.ttf);
+			}
+			@font-face {
+				font-family: quote;
+				src: url(Font/Quote.ttf);
+			}
+			
+			
+			/* ===== Quote ===== */
+			
+			
+			.quoteCSS {
+				color: rgba(255, 255, 255); 
+				font-size:200%; 
+				font-family: quote; 
+			}
+			.quoteNameCSS {
+				transform: translate(0px, 15px);
+				color: rgb(222, 52, 52); 
+				font-size:150%; 
+				font-family: quote; 
+			}
+			.quoteTransition { 
+				transition: all 0.7s;
+			}
+			.quoteButton {
+				transform: translate(0px, 35px);
+				font-size:80%;
+				font-family: quote;
+				padding: 5px 10px;
+				border-radius: 4px;
+				background-color: rgb(140, 52, 52, 0);
+				color: rgb(150, 170, 190);
+				border: 2px solid rgb(140, 52, 52);
+				transition: all 0.3s;
+			}
+			.quoteButton:hover {
+				background-color: rgb(140, 52, 52);
+				color: rgb(255, 255, 255);
+				border: 2px solid rgb(140, 52, 52);
+				transition: all 0.3s;
+			}
+			
+			
+			/* ===== Login Box ===== */
+			
+			
+			.textInfo {
+				color:rgb(255, 255, 255);
+				font-size:150%;
+				font-family:bitmap;
+			}	
+			.loginBox {
+				position: absolute;
+				bottom: 100px;
+				right: 200px;
+				border: 3px solid rgb(0, 0, 0, .1);
+				padding: 20px;
+				border-radius: 27px;
+				background-color: rgba(0, 0, 0, .2);
+			}
+			.inputBox {
+				width: 100%;
+				font-family:verdana;
+				color:rgb(255, 255, 255); 
+				padding: 7px 10px;
+				background-color: rgba(33, 35, 51, .5);
+				border: 1px solid rgb(255, 52, 52, .5);
+				border-radius: 4px;
+				box-sizing: border-box;
+			}			
+			.submitButton {
+				font-size:110%;
+				font-family: bitmap;
+				padding: 7px 150px;
+				border-radius: 4px;
+				background-color: rgb(255, 52, 52);
+				color: rgb(255, 255, 255);
+				border-color: rgb(255, 52, 52);
+				transition: all 0.3s;	
+			}
+			.submitButton:hover {
+				background-color: rgb(140, 52, 52);
+				color: rgb(255, 255, 255);
+				border-color: rgb(140, 52, 52);
+				transition: all 0.3s;
+			}
+			
+		</style>
+		
+	</head>
+	
+	<body>
+	
+		<div style="position: absolute; top: 30px; left: 30px;">
+			<div id="quote" class="quoteCSS quoteTransition">&nbsp;</div> 
+			<div id="quoteName" class="quoteNameCSS quoteTransition">&nbsp;</div> 
+			
+			<button class="quoteButton" onclick="nextQuote()">
+				Next Quote
+			</button>
+		</div>
+		
+		<script>
+			//rgb(255, 52, 52) == red
+			//rgb(24, 24, 32) == black		
+			var maxQ = 3;
+			
+			const quotes = [
+			"\"You only live once, but if you do it right, once is enough.\"", 
+			"\"Turn your wounds into wisdom.\"", 
+			"\"Keep calm and carry on.\"",
+			];
+			
+			const quotesName = [
+			"- Mae West -", 
+			"- Oprah Winfrey -", 
+			"- Winston Churchill -",
+			];
+				
+			var i = getRndInteger(0, 3-1);
+			var quotee = document.getElementById("quote");
+			var quoteeName = document.getElementById("quoteName");
+			
+			quoteFadeOut(quotes[i], quotesName[i]);
+			
+			function nextQuote() {
+				i = i+1;
+				
+				if (i >= maxQ) {i=0;}
+				
+				quoteFadeOut(quotes[i], quotesName[i]);
+				//quotee.innerHTML = quotes[i];
+				//quoteeName.innerHTML = quotesName[i];
+			}
+			
+			function quoteFadeOut(q, qn) {
+				quotee.style.opacity = 0;
+				quotee.style.transform = "translate(-20px, 0px)";
+				quoteeName.style.opacity = 0;
+				quoteeName.style.transform = "translate(0px, -5px)";
+				setTimeout( function() { quoteFadeIn(q, qn); }, 800 ); // 0.8 seconds
+			}
+			function quoteFadeIn(q, qn) {
+				quotee.innerHTML = q;
+				quoteeName.innerHTML = qn;
+				
+				quotee.style.opacity = 1;
+				quotee.style.transform = "translate(0px, 0px)";
+				quoteeName.style.opacity = 1;
+				quoteeName.style.transform = "translate(0px, 15px)";
+			}
+			
+			function getRndInteger(min, max) {
+				return Math.floor(Math.random() * (max - min + 1) ) + min;
+			}
+			
+		</script>	
+		
+		<div class="loginBox">
+			<form>
+				<table class="textInfo">	
+					<tr>
+						<td><label for="uform">Username</label><br></td>
+						<td><input class="inputBox" type="text" id="uform"></td>
+					</tr>
+					<tr>					
+						<td><label for="pform">Password</label><br></td>
+						<td><input class="inputBox" type="password" id="pform"></td>		
+					</tr>				
+				</table>
+			</form>
+			
+			<div style= "display: flex; justify-content: center; transform: translate(0px, 5px);">
+				<button class="submitButton" onclick="formss()">
+					Submit
+				</button>
+			</div>	
+		</div>
+		
+		<script>
+			function formss() {
+				var user = document.getElementById("uform").value;
+				var pass = document.getElementById("pform").value;
+				if(user == "abc" && pass == "123")
+				{
+					location.href="SectionA.html";
+				}
+			}
+		</script>
+
+	</body>
+	
+</html>
